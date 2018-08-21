@@ -22,7 +22,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
@@ -81,7 +81,7 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.15</version>
 		</dependency>
-	<!--jsp支持 -->
+		<!--jsp支持 -->
 		<!-- servlet 依赖. -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -96,6 +96,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
@@ -110,17 +111,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<!-- mybatis generator 自动生成代码插件 -->
-			<plugin>
-				<groupId>org.mybatis.generator</groupId>
-				<artifactId>mybatis-generator-maven-plugin</artifactId>
-				<version>1.3.2</version>
-				<configuration>
-					<configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
-					<overwrite>true</overwrite>
-					<verbose>true</verbose>
-				</configuration>
-			</plugin>
+
 		</plugins>
 	</build>
 </project>

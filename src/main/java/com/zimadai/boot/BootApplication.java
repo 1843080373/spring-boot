@@ -1,6 +1,7 @@
 package com.zimadai.boot;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
@@ -14,4 +15,9 @@ public class BootApplication extends SpringBootServletInitializer{
         // 设置启动类,用于独立tomcat运行的入口
         return builder.sources(BootApplication.class);
     }
+
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(BootApplication.class, args);
+    }
+
 }

@@ -1,34 +1,42 @@
 package com.zimadai.boot.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONObject;
 import com.zimadai.boot.bean.User;
 import com.zimadai.boot.service.UserService;
+import com.zimadai.boot.utils.RestData;
 
 /**
  * @author Administrator
  *
  */
-@Controller
+@RestController
 @RequestMapping(value = "/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @ResponseBody
-    @RequestMapping(value = "/add", produces = {"application/json;charset=UTF-8"})
-    public int addUser(User user){
-        return userService.addUser(user);
-    }
+	@PostMapping(value = "/add", produces = { "application/json;charset=UTF-8" })
+	public RestData addUser(User user) {
+		int row = userService.addUser(user);
+		if (row > 0) {
+			return new RestData.Builder().success(true).build();
+		}
+		return new RestData.Builder().success(false).data(null).message("操作失败").build();
+	}
 
-    @ResponseBody
-    @RequestMapping(value = "/all/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
-    public Object findAllUser(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize){
-        return userService.findAllUser(pageNum,pageSize);
-    }
+	@GetMapping(value = "/all/{pageNum}/{pageSize}", produces = { "application/json;charset=UTF-8" })
+	public RestData findAllUser(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
+		List<User> data = userService.findAllUser(pageNum, pageSize);
+		return new RestData.Builder().success(true).data(data).build();
+	}
 }

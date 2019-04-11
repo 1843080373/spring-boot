@@ -1,6 +1,5 @@
 package com.zimadai.boot.utils;
 
-@SuppressWarnings("unused")
 public class RestData {
 
 	private boolean success;

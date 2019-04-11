@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zimadai.boot.bean.User;
 import com.zimadai.boot.mapper.UserMapper;
 
@@ -17,7 +18,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int addUser(User user) {
-
         return userMapper.insertSelective(user);
     }
 
@@ -28,9 +28,11 @@ public class UserServiceImpl implements UserService {
     * pageSize 每页显示的数据条数
     * */
     @Override
-    public List<User> findAllUser(int pageNum, int pageSize) {
+    public PageInfo<User> findAllUser(int pageNum, int pageSize) {
         //将参数传给这个方法就可以实现物理分页了，非常简单。
         PageHelper.startPage(pageNum, pageSize);
-        return userMapper.selectAllUser();
+        List<User> list=userMapper.selectAllUser();
+        PageInfo<User> page = new PageInfo<User>(list);
+        return page;
     }
 }

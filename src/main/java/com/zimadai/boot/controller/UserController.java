@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.zimadai.boot.bean.User;
 import com.zimadai.boot.service.UserService;
 import com.zimadai.boot.utils.RestData;
@@ -36,7 +36,7 @@ public class UserController {
 
 	@GetMapping(value = "/all/{pageNum}/{pageSize}", produces = { "application/json;charset=UTF-8" })
 	public RestData findAllUser(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
-		List<User> data = userService.findAllUser(pageNum, pageSize);
+		PageInfo<User> data = userService.findAllUser(pageNum, pageSize);
 		return new RestData.Builder().success(true).data(data).build();
 	}
 }

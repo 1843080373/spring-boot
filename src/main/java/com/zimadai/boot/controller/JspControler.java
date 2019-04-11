@@ -2,7 +2,6 @@ package com.zimadai.boot.controller;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
 import com.zimadai.boot.bean.User;
 import com.zimadai.boot.service.UserService;
 import com.zimadai.boot.utils.FileUtil;
@@ -29,7 +29,7 @@ public class JspControler {
 
 	@GetMapping("/index")
 	public ModelAndView index() {
-		final List<User> list = userService.findAllUser(0, 0);
+		final PageInfo<User> list = userService.findAllUser(0, 0);
 		return new ModelAndView("index", new HashMap<String,Object>() {
 			/**
 			 * 
@@ -37,7 +37,7 @@ public class JspControler {
 			private static final long serialVersionUID = 1L;
 
 			{
-				put("data",list);
+				put("data",list.getList());
 			}
 		});
 	}
